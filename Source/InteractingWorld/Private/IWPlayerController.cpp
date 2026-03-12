@@ -14,7 +14,6 @@ void AIWPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
 
-	
 }
 
 void AIWPlayerController::BeginPlay()
@@ -35,6 +34,7 @@ void AIWPlayerController::BeginPlay()
 			if (IsValid(iwHud))
 			{
 				EnhancedInput->BindAction(InventoryInputAction, ETriggerEvent::Started, iwHud, &AIWHud::OpenInventory);
+
 			}
 			else
 			{

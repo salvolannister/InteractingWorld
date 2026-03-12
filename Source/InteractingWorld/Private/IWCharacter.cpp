@@ -1,12 +1,30 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
+// File include
 #include "IWCharacter.h"
 
+#include <Animation/AnimMontage.h>
+#include <EnhancedInputComponent.h>
+#include <EnhancedInputSubsystems.h>
+
+
+
+void AIWCharacter::Attack()
+{
+	UE_LOG(LogTemp, Verbose, TEXT("IW: Attack"));
+
+	if (IsValid(AttackPrimaryAnimation))
+	{
+		PlayAnimMontage(AttackPrimaryAnimation);
+	}
+}
+
+
+#pragma region "ACharacter Interface"
 // Sets default values
 AIWCharacter::AIWCharacter()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 }
@@ -30,5 +48,21 @@ void AIWCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	UEnhancedInputComponent* enanchedInput = Cast<UEnhancedInputComponent>(PlayerInputComponent);
+
+	if (enanchedInput)
+	{
+		if (IsValid(AttackInput))
+		{
+			enanchedInput->BindAction(AttackInput, ETriggerEvent::Triggered, this, &AIWCharacter::Attack);
+		}
+
+	}
+	else
+	{
+		UE_LOG(LogTemp, Verbose, TEXT("Enanched input not working in PlayerController"))
+	}
+
 }
 
+#pragma endregion

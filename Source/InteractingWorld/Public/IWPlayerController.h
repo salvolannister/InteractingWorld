@@ -29,6 +29,9 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Interactable World | Input")
 	TObjectPtr<class UInputAction> InventoryInputAction;
 
+	UPROPERTY(EditAnywhere, Category = "Interactable World | Input")
+	TObjectPtr<class UInputAction> AttackInputAction;
+
 	void SetupInputComponent() override;
 
 	// Called when the game starts
